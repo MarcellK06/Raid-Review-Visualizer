@@ -16,6 +16,7 @@ const material = new THREE.MeshBasicMaterial( { color: 0x00ff00 } );
 const material2 = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 const npcs = {};
 camera.position.y = 3;
+camera.fov = 90;
 camera.position.x = -4;
 camera.rotation.x = THREE.MathUtils.degToRad(-90);
 camera.rotation.z = THREE.MathUtils.degToRad(-90);
@@ -40,7 +41,7 @@ function animate() {
                 previousData = readFile[k][j-1];
             }
         var data = readFile[k][j];
-        var nextData = 99999999;
+        var nextData = 999999999;
         if (j < readFile[k].length - 1){
         nextData = readFile[k][j+1];
         }
@@ -62,8 +63,8 @@ function animate() {
                 npcs[data.profileId] = [nMesh, rotMarker];
             }
             else {
-            var obj =  new THREE.BoxGeometry( 1, 2, 1 );
-            var nCube = new THREE.BoxGeometry(.5, .2, .2);
+            var obj =  new THREE.BoxGeometry( 1/2, 2/2, 1/2);
+            var nCube = new THREE.BoxGeometry(.5/2, .2/2, .2/2);
             var nMesh = new THREE.Mesh(obj, material2);
             var rotMarker = new THREE.Mesh(nCube, material)
             rotMarker.position.z = .1;
@@ -74,7 +75,7 @@ function animate() {
         }
     }
     }
-        if (npcs[data.profileId] != undefined && (v_time >= previousData.time && v_time <= nextData.time)){
+        if (npcs[data.profileId] != undefined && (v_time >= previousData.time && v_time <= nextData.time    )){
             console.log(v_time);
             var list = npcs[data.profileId];
             list[0].position.x = -parseFloat(data.x);
